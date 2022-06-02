@@ -4,14 +4,16 @@ import 'product.dart';
 
 class CartModel with ChangeNotifier {
   final List<Product> _products = [];
+  final List<int> _quantityList = [];
 
   List<Product> get products => _products;
+  List<int> get quantityList => _quantityList;
 
   void toogleIsInCart(Product product) {
     if (products.contains(product)) {
-      products.remove(product);
+      _products.remove(product);
     } else {
-      products.add(product);
+      _products.add(product);
     }
     notifyListeners();
   }

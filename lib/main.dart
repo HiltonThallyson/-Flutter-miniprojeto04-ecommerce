@@ -1,4 +1,6 @@
+import 'package:f6_ecommerce/model/cart_model.dart';
 import 'package:f6_ecommerce/model/product_list.dart';
+import 'package:f6_ecommerce/pages/mycart_page.dart';
 import 'package:f6_ecommerce/pages/product_detail_page.dart';
 import 'package:f6_ecommerce/pages/product_form_page.dart';
 import 'package:f6_ecommerce/pages/products_overview_page.dart';
@@ -16,8 +18,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProductList(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ProductList(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartModel(),
+        )
+      ],
       child: MaterialApp(
         title: 'Minha Loja',
         theme: ThemeData(
@@ -29,6 +38,7 @@ class MyApp extends StatelessWidget {
         routes: {
           AppRoutes.PRODUCT_DETAIL: (ctx) => ProductDetailPage(),
           AppRoutes.PRODUCT_FORM: (context) => ProductFormPage(),
+          AppRoutes.CART_VIEW: (context) => MyCart(),
         },
         debugShowCheckedModeBanner: false,
       ),
