@@ -22,9 +22,11 @@ class _MyCartState extends State<MyCart> {
         body: Column(
           children: [
             Expanded(
+              flex: 5,
               child: DisplayProductsArea(),
             ),
             Expanded(
+              flex: 1,
               child: DisplayTotal(),
             )
           ],

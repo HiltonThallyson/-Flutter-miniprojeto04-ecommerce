@@ -17,7 +17,15 @@ class _DisplayTotalState extends State<DisplayTotal> {
       (cart) => cart.totalValue,
     );
     return Container(
-      child: Text(total.toStringAsFixed(2)),
+      alignment: Alignment.center,
+      color: Theme.of(context).colorScheme.secondary,
+      child: Text(
+        'R\$${total.toStringAsFixed(2)}',
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }
