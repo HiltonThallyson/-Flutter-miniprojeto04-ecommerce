@@ -65,11 +65,20 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
           ],
         ),
         body: ProductGrid(_showOnlyFavorites),
-        floatingActionButton: IconButton(
+        floatingActionButton: ElevatedButton(
           onPressed: () => cart
               ? Navigator.of(context).pushNamed(AppRoutes.CART_VIEW)
               : null,
-          icon: Icon(Icons.shopping_cart),
+          child: Icon(
+            Icons.shopping_cart,
+            size: 30,
+          ),
+          style: ElevatedButton.styleFrom(
+              primary:
+                  cart ? Theme.of(context).colorScheme.secondary : Colors.grey,
+              onPrimary: Colors.black,
+              shape: CircleBorder(),
+              fixedSize: Size(60, 60)),
         ));
   }
 }

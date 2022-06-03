@@ -66,6 +66,7 @@ class _ProductInCartState extends State<ProductInCart> {
             onChanged: (value) => setState(() {
               quantity = int.parse(value.replaceAll(',', ''));
               cart.quantityList[widget.productPosition] = quantity;
+              cart.updateTotalValue(widget.productPosition, quantity);
             }),
           ),
         )

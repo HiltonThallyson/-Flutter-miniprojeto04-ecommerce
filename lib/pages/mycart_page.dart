@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import '../components/display_chart_area.dart';
+import '../components/display_total_area.dart';
 import '../components/product_cart_item.dart';
 
 class MyCart extends StatefulWidget {
@@ -20,7 +21,12 @@ class _MyCartState extends State<MyCart> {
         ),
         body: Column(
           children: [
-            Expanded(child: DisplayProductsArea()),
+            Expanded(
+              child: DisplayProductsArea(),
+            ),
+            Expanded(
+              child: DisplayTotal(),
+            )
           ],
         ));
   }
