@@ -61,7 +61,7 @@ class ProductItem extends StatelessWidget {
               onPressed: () {
                 cart.toogleIsInCart(product);
               },
-              icon: Icon(Icons.shopping_cart),
+              icon: const Icon(Icons.shopping_cart),
               color: isInCart
                   ? Colors.green
                   : Theme.of(context).colorScheme.secondary),

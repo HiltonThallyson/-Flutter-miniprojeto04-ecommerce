@@ -10,15 +10,29 @@ class CartModel with ChangeNotifier {
   List<int> get quantityList => _quantityList;
 
   void toogleIsInCart(Product product) {
+    int option = 0;
     if (products.contains(product)) {
       _products.remove(product);
+      option = 1;
+      // _quantityList
+      //     .removeAt(products.indexWhere((produto) => produto.id == product.id));
+    } else {
+      _products.add(product);
+      option = 2;
+      // _quantityList.insert(
+      //     products.indexWhere((produto) => produto.id == product.id), 1);
+    }
+    notifyListeners();
+    changeQuantity(option, product);
+  }
+
+  void changeQuantity(int option, Product product) {
+    if (option == 1) {
       _quantityList
           .removeAt(products.indexWhere((produto) => produto.id == product.id));
     } else {
-      _products.add(product);
       _quantityList.insert(
           products.indexWhere((produto) => produto.id == product.id), 1);
     }
-    notifyListeners();
   }
 }
