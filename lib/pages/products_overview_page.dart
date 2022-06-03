@@ -25,7 +25,8 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
   @override
   Widget build(BuildContext context) {
     //final provider = Provider.of<ProductList>(context);
-
+    var cart = context.select<CartModel, bool>(
+        (cartProducts) => cartProducts.products.isNotEmpty);
     return Scaffold(
         appBar: AppBar(
           title: Text('Minha Loja'),
@@ -65,7 +66,9 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
         ),
         body: ProductGrid(_showOnlyFavorites),
         floatingActionButton: IconButton(
-          onPressed: () => Navigator.of(context).pushNamed(AppRoutes.CART_VIEW),
+          onPressed: () => cart
+              ? Navigator.of(context).pushNamed(AppRoutes.CART_VIEW)
+              : null,
           icon: Icon(Icons.shopping_cart),
         ));
   }

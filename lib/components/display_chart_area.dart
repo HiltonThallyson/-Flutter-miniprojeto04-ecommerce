@@ -15,11 +15,10 @@ class _DisplayProductsAreaState extends State<DisplayProductsArea> {
   @override
   Widget build(BuildContext context) {
     var cart = context.watch<CartModel>();
-    print(cart.products.length);
     return ListView.builder(
         itemCount: cart.products.length,
         itemBuilder: ((context, index) {
-          return ListTile(leading: ProductInCart(cart.products[index]));
+          return ProductInCart(cart.products[index], index);
         }));
   }
 }
