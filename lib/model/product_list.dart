@@ -7,7 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class ProductList with ChangeNotifier {
-  final _baseUrl = 'https://teste-db-d3d87-default-rtdb.firebaseio.com';
+  final _baseUrl =
+      'https://ecommerce-miniprojeto04-default-rtdb.firebaseio.com/';
   //img https://st.depositphotos.com/1000459/2436/i/950/depositphotos_24366251-stock-photo-soccer-ball.jpg
 
   List<Product> _items = dummyProducts;
