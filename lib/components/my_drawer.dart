@@ -24,9 +24,23 @@ class MyDrawer extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Icon(Icons.shop),
-            title: Text('Loja'),
+            title: Text(
+              'Loja',
+              style: TextStyle(fontSize: 20),
+            ),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(AppRoutes.HOME);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text(
+              'Gerenciar Produtos',
+              style: TextStyle(fontSize: 20),
+            ),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(AppRoutes.PRODUCT_MANAGMENT);
             },
           ),
         ],

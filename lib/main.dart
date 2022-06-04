@@ -1,5 +1,6 @@
 import 'package:f6_ecommerce/model/cart_model.dart';
 import 'package:f6_ecommerce/model/product_list.dart';
+import 'package:f6_ecommerce/pages/edit_product_page.dart';
 import 'package:f6_ecommerce/pages/mycart_page.dart';
 import 'package:f6_ecommerce/pages/product_detail_page.dart';
 import 'package:f6_ecommerce/pages/product_form_page.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.PRODUCT_FORM: (context) => ProductFormPage(),
           AppRoutes.CART_VIEW: (context) => MyCart(),
           AppRoutes.PRODUCT_MANAGMENT: (context) => ProductManagementPage(),
+          AppRoutes.EDIT_PRODUCT: (context) => EditProductPage(),
         },
         debugShowCheckedModeBanner: false,
       ),

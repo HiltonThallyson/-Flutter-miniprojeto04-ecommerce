@@ -36,19 +36,6 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
     super.initState();
   }
 
-  static const snackBarPlaceAdded = SnackBar(
-    content: Text('Um novo produto foi adicionado!'),
-    duration: const Duration(seconds: 2),
-  );
-
-  void _snackBarHandler(bool isActive) {
-    if (isActive) {
-      setState(() {
-        ScaffoldMessenger.of(context).showSnackBar(snackBarPlaceAdded);
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     //final provider = Provider.of<ProductList>(context);
@@ -96,11 +83,3 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
     );
   }
 }
-
-// async {
-//               await Navigator.of(context)
-//                   .pushNamed(
-//                     AppRoutes.PRODUCT_FORM,
-//                   )
-//                   .then((result) => _snackBarHandler(result as bool));
-//             }

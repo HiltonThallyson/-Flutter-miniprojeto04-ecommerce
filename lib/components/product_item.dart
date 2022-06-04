@@ -1,5 +1,6 @@
 import 'package:f6_ecommerce/model/cart_model.dart';
 import 'package:f6_ecommerce/model/product.dart';
+import 'package:f6_ecommerce/model/product_list.dart';
 import 'package:f6_ecommerce/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,8 @@ class ProductItem extends StatelessWidget {
       context,
       listen: false,
     );
+
+    var productList = context.watch<ProductList>();
 
     //final product = context.watch<Product>();
     final cart = context.watch<CartModel>();
@@ -43,6 +46,7 @@ class ProductItem extends StatelessWidget {
             onPressed: () {
               //adicionando metodo ao clique do botão
               product.toggleFavorite();
+              productList.updateProduct(product);
             },
             //icon: Icon(Icons.favorite),
             //pegando icone se for favorito ou não
