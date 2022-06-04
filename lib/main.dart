@@ -3,6 +3,7 @@ import 'package:f6_ecommerce/model/product_list.dart';
 import 'package:f6_ecommerce/pages/mycart_page.dart';
 import 'package:f6_ecommerce/pages/product_detail_page.dart';
 import 'package:f6_ecommerce/pages/product_form_page.dart';
+import 'package:f6_ecommerce/pages/product_managment_page.dart';
 import 'package:f6_ecommerce/pages/products_overview_page.dart';
 import 'package:f6_ecommerce/utils/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +35,13 @@ class MyApp extends StatelessWidget {
             //primarySwatch: Colors.pink,
             colorScheme: ThemeData().copyWith().colorScheme.copyWith(
                 primary: Colors.pink, secondary: Colors.orangeAccent)),
-        home: ProductsOverviewPage(),
+        initialRoute: '/',
         routes: {
+          AppRoutes.HOME: (context) => ProductsOverviewPage(),
           AppRoutes.PRODUCT_DETAIL: (ctx) => ProductDetailPage(),
           AppRoutes.PRODUCT_FORM: (context) => ProductFormPage(),
           AppRoutes.CART_VIEW: (context) => MyCart(),
+          AppRoutes.PRODUCT_MANAGMENT: (context) => ProductManagementPage(),
         },
         debugShowCheckedModeBanner: false,
       ),

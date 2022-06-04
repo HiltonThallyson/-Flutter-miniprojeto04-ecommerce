@@ -1,3 +1,4 @@
+import 'package:f6_ecommerce/components/my_drawer.dart';
 import 'package:f6_ecommerce/components/product_grid.dart';
 import 'package:f6_ecommerce/components/product_item.dart';
 import 'package:f6_ecommerce/data/dummy_data.dart';
@@ -22,6 +23,18 @@ class ProductsOverviewPage extends StatefulWidget {
 
 class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
   bool _showOnlyFavorites = false;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    _isLoading = true;
+    Provider.of<ProductList>(context, listen: false).fetchProducts().then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+    super.initState();
+  }
 
   static const snackBarPlaceAdded = SnackBar(
     content: Text('Um novo produto foi adicionado!'),
@@ -39,62 +52,55 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
   @override
   Widget build(BuildContext context) {
     //final provider = Provider.of<ProductList>(context);
-    var cart = context.select<CartModel, bool>(
-        (cartProducts) => cartProducts.products.isNotEmpty);
+
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Minha Loja'),
-          actions: [
-            IconButton(
-                onPressed: () async {
-                  await Navigator.of(context)
-                      .pushNamed(
-                        AppRoutes.PRODUCT_FORM,
-                      )
-                      .then((result) => _snackBarHandler(result as bool));
-                },
-                icon: Icon(Icons.add)),
-            PopupMenuButton(
-              icon: Icon(Icons.more_vert),
-              itemBuilder: (_) => [
-                PopupMenuItem(
-                  child: Text('Somente Favoritos'),
-                  value: FilterOptions.favorite,
-                ),
-                PopupMenuItem(
-                  child: Text('Todos'),
-                  value: FilterOptions.all,
-                ),
-              ],
-              onSelected: (FilterOptions selectedValue) {
-                setState(() {
-                  if (selectedValue == FilterOptions.favorite) {
-                    //provider.showFavoriteOnly();
-                    _showOnlyFavorites = true;
-                  } else {
-                    //provider.showAll();
-                    _showOnlyFavorites = false;
-                  }
-                });
-              },
-            ),
-          ],
-        ),
-        body: ProductGrid(_showOnlyFavorites),
-        floatingActionButton: ElevatedButton(
-          onPressed: () => cart
-              ? Navigator.of(context).pushNamed(AppRoutes.CART_VIEW)
-              : null,
-          child: Icon(
-            Icons.shopping_cart,
-            size: 30,
+      appBar: AppBar(
+        title: Text('Minha Loja'),
+        actions: [
+          IconButton(
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(AppRoutes.CART_VIEW),
+              icon: Icon(Icons.shopping_cart)),
+          PopupMenuButton(
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                child: Text('Somente Favoritos'),
+                value: FilterOptions.favorite,
+              ),
+              PopupMenuItem(
+                child: Text('Todos'),
+                value: FilterOptions.all,
+              ),
+            ],
+            onSelected: (FilterOptions selectedValue) {
+              setState(() {
+                if (selectedValue == FilterOptions.favorite) {
+                  //provider.showFavoriteOnly();
+                  _showOnlyFavorites = true;
+                } else {
+                  //provider.showAll();
+                  _showOnlyFavorites = false;
+                }
+              });
+            },
           ),
-          style: ElevatedButton.styleFrom(
-              primary:
-                  cart ? Theme.of(context).colorScheme.secondary : Colors.grey,
-              onPrimary: Colors.black,
-              shape: CircleBorder(),
-              fixedSize: Size(60, 60)),
-        ));
+        ],
+      ),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ProductGrid(_showOnlyFavorites),
+      drawer: MyDrawer(),
+    );
   }
 }
+
+// async {
+//               await Navigator.of(context)
+//                   .pushNamed(
+//                     AppRoutes.PRODUCT_FORM,
+//                   )
+//                   .then((result) => _snackBarHandler(result as bool));
+//             }

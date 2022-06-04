@@ -7,11 +7,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class ProductList with ChangeNotifier {
-  final _baseUrl =
-      'https://ecommerce-miniprojeto04-default-rtdb.firebaseio.com/';
+  final _baseUrl = 'ecommerce-miniprojeto04-default-rtdb.firebaseio.com';
+
   //img https://st.depositphotos.com/1000459/2436/i/950/depositphotos_24366251-stock-photo-soccer-ball.jpg
 
-  List<Product> _items = dummyProducts;
+  List<Product> _items = [];
   bool _showFavoriteOnly = false;
 
   List<Product> get items {
@@ -32,20 +32,17 @@ class ProductList with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addProduct(Product product) {
-    final future = http.post(Uri.parse('$_baseUrl/products.json'),
-        body: jsonEncode({
-          "title": product.title,
-          "description": product.description,
-          "price": product.price,
-          "imageUrl": product.imageUrl,
-          "isFavorite": product.isFavorite,
-        }));
-    return future.then((response) {
-      //print('espera a requisição acontecer');
-      print(jsonDecode(response.body));
+  Future<void> addProduct(Product product) async {
+    try {
+      final response = await http.post(Uri.https(_baseUrl, '/products.json'),
+          body: jsonEncode({
+            "title": product.title,
+            "description": product.description,
+            "price": product.price,
+            "imageUrl": product.imageUrl,
+            "isFavorite": product.isFavorite,
+          }));
       final id = jsonDecode(response.body)['name'];
-      print(response.statusCode);
       _items.add(Product(
           id: id,
           title: product.title,
@@ -53,8 +50,31 @@ class ProductList with ChangeNotifier {
           price: product.price,
           imageUrl: product.imageUrl));
       notifyListeners();
-    });
-    // print('executa em sequencia');
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<void> fetchProducts() async {
+    try {
+      final response = await http.get(Uri.https(_baseUrl, '/products.json'));
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      List<Product> loadedProducts = [];
+      data.forEach((productId, productData) {
+        loadedProducts.add(Product(
+          id: productId,
+          title: productData['title'],
+          description: productData['description'],
+          price: productData['price'],
+          imageUrl: productData['imageUrl'],
+          isFavorite: productData['isFavorite'],
+        ));
+      });
+      _items = loadedProducts;
+      notifyListeners();
+    } catch (error) {
+      rethrow;
+    }
   }
 
   Future<void> saveProduct(Map<String, Object> data) {
