@@ -7,14 +7,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class ProductList with ChangeNotifier {
-  final _baseUrl = 'https://teste-db-d3d87-default-rtdb.firebaseio.com';
+  final _baseUrl =
+      'https://ecommerce-miniprojeto04-default-rtdb.firebaseio.com/';
   //img https://st.depositphotos.com/1000459/2436/i/950/depositphotos_24366251-stock-photo-soccer-ball.jpg
 
-  List<Product> _items = dummyProducts;
+  late List<Product> _items;
   bool _showFavoriteOnly = false;
 
   List<Product> get items {
-    return [..._items];
+    return [...items];
   }
 
   List<Product> get favoriteItems {
@@ -29,6 +30,20 @@ class ProductList with ChangeNotifier {
   void showAll() {
     _showFavoriteOnly = false;
     notifyListeners();
+  }
+
+  Future<List<Product>> getProducts() async {
+    final response = await http.get(Uri.parse('$_baseUrl/products.json'));
+
+    if (response.statusCode == 200) {
+      final products = jsonDecode(response.body).cast<Map<String, dynamic>>();
+
+      return products
+          .map<Product>((product) => Product.fromJson(product))
+          .toList();
+    } else {
+      throw Exception('Failed to load products');
+    }
   }
 
   Future<void> addProduct(Product product) {

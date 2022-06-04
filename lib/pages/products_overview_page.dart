@@ -22,6 +22,20 @@ class ProductsOverviewPage extends StatefulWidget {
 
 class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
   bool _showOnlyFavorites = false;
+
+  static const snackBarPlaceAdded = SnackBar(
+    content: Text('Um novo produto foi adicionado!'),
+    duration: const Duration(seconds: 2),
+  );
+
+  void _snackBarHandler(bool isActive) {
+    if (isActive) {
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(snackBarPlaceAdded);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     //final provider = Provider.of<ProductList>(context);
@@ -32,10 +46,12 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
           title: Text('Minha Loja'),
           actions: [
             IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    AppRoutes.PRODUCT_FORM,
-                  );
+                onPressed: () async {
+                  await Navigator.of(context)
+                      .pushNamed(
+                        AppRoutes.PRODUCT_FORM,
+                      )
+                      .then((result) => _snackBarHandler(result as bool));
                 },
                 icon: Icon(Icons.add)),
             PopupMenuButton(

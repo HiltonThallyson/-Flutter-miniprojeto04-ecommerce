@@ -13,8 +13,8 @@ class ProductFormPage extends StatefulWidget {
 class _ProductFormPageState extends State<ProductFormPage> {
   final _priceFocus = FocusNode();
   final _descriptionFocus = FocusNode();
-
   final _imageUrlFocus = FocusNode();
+
   final _imageUrlController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -81,7 +81,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
       context,
       listen: false,
     ).saveProduct(_formData).then((value) {
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(true);
     });
   }
 
