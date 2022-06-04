@@ -23,4 +23,13 @@ class Product with ChangeNotifier {
     isFavorite = !isFavorite;
     notifyListeners();
   }
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+        id: json['id'],
+        title: json['title'],
+        description: json['description'],
+        price: json['price'],
+        imageUrl: json['imageUrl']);
+  }
 }
