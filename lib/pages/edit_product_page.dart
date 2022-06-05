@@ -1,3 +1,4 @@
+import 'package:f6_ecommerce/model/cart.dart';
 import 'package:f6_ecommerce/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -115,6 +116,7 @@ class _EditProductPageState extends State<EditProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    var cartInfo = context.watch<CartModel>();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -220,7 +222,7 @@ class _EditProductPageState extends State<EditProductPage> {
                             textInputAction: TextInputAction.done,
                             focusNode: _imageUrlFocus,
                             controller: _imageUrlController,
-                            onFieldSubmitted: (_) => _submitForm(),
+                            onFieldSubmitted: (_) => _submitForm,
                             onSaved: (imageUrl) =>
                                 _formData['imageUrl'] = imageUrl ?? '',
                             validator: (_imageUrl) {

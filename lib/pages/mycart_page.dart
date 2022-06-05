@@ -17,7 +17,7 @@ class _MyCartState extends State<MyCart> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Meu Carrinho'),
+          title: const Text('Meu Carrinho'),
         ),
         body: Column(
           children: [
@@ -27,7 +27,7 @@ class _MyCartState extends State<MyCart> {
                     itemCount: cartInfo.items.length,
                     itemBuilder: ((context, index) {
                       return Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -49,13 +49,13 @@ class _MyCartState extends State<MyCart> {
                                     .elementAt(index)
                                     .price
                                     .toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               ),
                             ),
                             Wrap(children: [
                               Container(
-                                padding: EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(5),
                                 width: 160,
                                 child: Text(cartInfo.items.values
                                     .elementAt(index)
@@ -80,40 +80,20 @@ class _MyCartState extends State<MyCart> {
                                     .quantity = int.parse(value))),
                           ],
                         ),
-                        // child: ListTile(
-                        //   leading: Container(
-                        //     alignment: Alignment.center,
-                        //     height: 80,
-                        //     width: 80,
-                        //     decoration: BoxDecoration(
-                        //       color: Theme.of(context).colorScheme.primary,
-                        //       border: Border.all(
-                        //           width: 3,
-                        //           color: Theme.of(context).colorScheme.primary),
-                        //       borderRadius: BorderRadius.all(Radius.circular(3)),
-                        //     ),
-                        //     child: Text(
-                        //       cartInfo.items.values
-                        //           .elementAt(index)
-                        //           .price
-                        //           .toString(),
-                        //       style: TextStyle(
-                        //           fontSize: 15, fontWeight: FontWeight.bold),
-                        //     ),
-                        //   ),
-                        //   title: Wrap(children: [
-                        //     Text(cartInfo.items.values
-                        //         .elementAt(index)
-                        //         .title
-                        //         .toString()),
-                        //   ]),
-                        //   trailing: QuantityInput(
-                        //       value: quantity,
-                        //       onChanged: (value) => setState(() => quantity =
-                        //           int.parse(value.replaceAll(',', '')))),
-                        // ),
                       );
-                    })))
+                    }))),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width,
+                color: Theme.of(context).colorScheme.secondary,
+                child: Text(
+                  'Total: R\$${cartInfo.totalAmount.toStringAsFixed(2)}',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+              ),
+            )
           ],
         ));
   }
