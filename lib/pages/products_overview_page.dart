@@ -32,6 +32,7 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
       setState(() {
         _isLoading = false;
       });
+      Provider.of<CartModel>(context, listen: false).clearCart();
     });
     super.initState();
   }

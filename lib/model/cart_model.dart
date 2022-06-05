@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'product.dart';
 
 class CartModel with ChangeNotifier {
-  final List<Product> _products = [];
-  final List<int> _quantityList = List.filled(1, 0, growable: true);
+  List<Product> _products = [];
+  List<int> _quantityList = List.filled(1, 0, growable: true);
   double _totalValue = 0.0;
 
   List<Product> get products => _products;
@@ -38,6 +38,13 @@ class CartModel with ChangeNotifier {
     for (int i = 0; i < products.length; i++) {
       _totalValue += products[i].price * quantityList[i];
     }
+    notifyListeners();
+  }
+
+  void clearCart() {
+    _products = [];
+    _quantityList = [];
+    _totalValue = 0.00;
     notifyListeners();
   }
 }

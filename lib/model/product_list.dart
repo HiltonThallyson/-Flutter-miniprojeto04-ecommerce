@@ -113,10 +113,13 @@ class ProductList with ChangeNotifier {
     }
   }
 
-  void removeProduct(Product product) {
+  void removeProduct(Product product) async {
     int index = _items.indexWhere((p) => p.id == product.id);
 
     if (index >= 0) {
+      final targetUrl = Uri.https(_baseUrl, '/products/${product.id}.json');
+
+      await http.delete(targetUrl);
       _items.removeWhere((p) => p.id == product.id);
       notifyListeners();
     }

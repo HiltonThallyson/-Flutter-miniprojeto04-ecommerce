@@ -7,6 +7,7 @@ import 'package:quantity_input/quantity_input.dart';
 import 'package:provider/provider.dart';
 
 import '../model/product.dart';
+import '../model/product_list.dart';
 
 class ProductInCart extends StatefulWidget {
   Product product;
@@ -21,6 +22,7 @@ class _ProductInCartState extends State<ProductInCart> {
   @override
   Widget build(BuildContext context) {
     var cart = context.watch<CartModel>();
+    var provider = context.read<ProductList>();
     int quantity = cart.quantityList[widget.productPosition];
 
     return Row(
