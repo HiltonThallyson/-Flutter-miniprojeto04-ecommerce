@@ -1,4 +1,4 @@
-import 'package:f6_ecommerce/model/cart_model.dart';
+import 'package:f6_ecommerce/model/cart.dart';
 import 'package:f6_ecommerce/model/product.dart';
 import 'package:f6_ecommerce/model/product_list.dart';
 import 'package:f6_ecommerce/utils/app_routes.dart';
@@ -23,7 +23,7 @@ class ProductItem extends StatelessWidget {
     var isFavorite =
         context.select<Product, bool>((produto) => produto.isFavorite);
     var isInCart = context.select<CartModel, bool>(
-      (cartList) => cartList.products.contains(product),
+      (cartList) => cartList.items.containsKey(product.id),
     );
 
     return ClipRRect(
@@ -63,7 +63,7 @@ class ProductItem extends StatelessWidget {
           ),
           trailing: IconButton(
               onPressed: () {
-                cart.toogleIsInCart(product);
+                cart.addOrRemoveItem(product.id, product.price, product.title);
               },
               icon: const Icon(Icons.shopping_cart),
               color: isInCart

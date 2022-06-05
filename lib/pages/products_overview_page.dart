@@ -2,7 +2,7 @@ import 'package:f6_ecommerce/components/my_drawer.dart';
 import 'package:f6_ecommerce/components/product_grid.dart';
 import 'package:f6_ecommerce/components/product_item.dart';
 import 'package:f6_ecommerce/data/dummy_data.dart';
-import 'package:f6_ecommerce/model/cart_model.dart';
+import 'package:f6_ecommerce/model/cart.dart';
 import 'package:f6_ecommerce/model/product.dart';
 import 'package:f6_ecommerce/model/product_list.dart';
 import 'package:f6_ecommerce/utils/app_routes.dart';
@@ -32,7 +32,6 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
       setState(() {
         _isLoading = false;
       });
-      Provider.of<CartModel>(context, listen: false).clearCart();
     });
     super.initState();
   }

@@ -1,4 +1,4 @@
-import 'package:f6_ecommerce/model/cart_model.dart';
+import 'package:f6_ecommerce/model/cart.dart';
 import 'package:f6_ecommerce/model/product_list.dart';
 import 'package:f6_ecommerce/pages/edit_product_page.dart';
 import 'package:f6_ecommerce/pages/mycart_page.dart';
