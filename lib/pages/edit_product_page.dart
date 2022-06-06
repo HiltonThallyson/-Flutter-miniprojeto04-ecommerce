@@ -76,6 +76,7 @@ class _EditProductPageState extends State<EditProductPage> {
   }
 
   Future<void> _submitForm() async {
+    var cart = Provider.of<CartModel>(context, listen: false);
     final isValid = _formKey.currentState?.validate() ?? false;
 
     if (!isValid) {
@@ -90,7 +91,10 @@ class _EditProductPageState extends State<EditProductPage> {
       await Provider.of<ProductList>(
         context,
         listen: false,
-      ).saveProduct(_formData);
+      ).saveProduct(_formData).then((_) => cart.updateCart(
+          _formData['id'].toString(),
+          _formData['price'] as double,
+          _formData['name'].toString()));
     } catch (error) {
       setState(() {
         _hasError = true;

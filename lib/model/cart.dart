@@ -40,4 +40,17 @@ class CartModel with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void updateCart(String productId, double price, String title) {
+    int quantity = 1;
+    if (_items.containsKey(productId)) {
+      quantity = _items[productId]!.quantity;
+      _items.removeWhere((cartItemId, value) => cartItemId == productId);
+      _items.putIfAbsent(
+          productId,
+          () => CartItem(
+              id: productId, title: title, quantity: quantity, price: price));
+      notifyListeners();
+    }
+  }
 }

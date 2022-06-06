@@ -1,3 +1,4 @@
+import 'package:f6_ecommerce/model/cart.dart';
 import 'package:f6_ecommerce/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +39,7 @@ class _ProductSimpleViewState extends State<ProductSimpleView> {
     final String title = widget.product.title;
     final String imgUrl = widget.product.imageUrl;
     var provider = context.read<ProductList>();
+    var cart = context.watch<CartModel>();
 
     return ListTile(
       title: Text(title),
@@ -63,6 +65,8 @@ class _ProductSimpleViewState extends State<ProductSimpleView> {
             IconButton(
               onPressed: () {
                 provider.removeProduct(widget.product);
+                cart.addOrRemoveItem(widget.product.id, widget.product.price,
+                    widget.product.title);
                 _snackBarHandler(true, snackBarProductRemoved);
               },
               icon: Icon(
